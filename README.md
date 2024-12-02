@@ -7,7 +7,7 @@ tsp_googlemaps_fixed_start computes the optimal path between points by solving t
 To solve the traveling salesman problem, the function uses a Branch-and-Bound algorithm. It explores all the branch of the path, pruning when the distance is longer than the best path.
 Points to visit can be indicated in latitude, longitude, address or location name format.
 
-To use the library, your Google Maps API key must provide access to ditance_matrix and geocode.
+To use the library, your **Google Maps API key must provide access to ditance_matrix and geocode.**
 
 Display the optimal path and the distance in kilometer.
 
