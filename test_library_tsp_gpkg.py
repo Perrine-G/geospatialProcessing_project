@@ -15,7 +15,7 @@ class Test_TSPGoogleMaps(unittest.TestCase):
             "48.8583701, 2.2944813",
             "Calanque de Port Pin",
             "Piazza del Duomo, 50122 Firenze FI, Italie"]
-        api_key = "AIzaSyAMsr4GGdiQS7FWsN5xgu7z8_qj6tpacTg"
+        api_key = "Input the API key"
         
         result = tsp_googlemaps_fixed_start(origin, destinations, api_key, loop)
 
@@ -34,7 +34,7 @@ class Test_TSPGoogleMaps(unittest.TestCase):
             "48.8583701, 2.2944813",
             "Calanque de Port Pin",
             "Piazza del Duomo, 50122 Firenze FI, Italie",]
-        api_key = "AIzaSyAMsr4GGdiQS7FWsN5xgu7z8_qj6tpacTg"
+        api_key = "Input the API key"
 
         result = tsp_googlemaps_fixed_start(origin, destinations, api_key, loop)
 
