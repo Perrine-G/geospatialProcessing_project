@@ -1,31 +1,59 @@
-# Geospatial Processing project
-As part of the Geospatial Processing course at Politecnico di Milano, fall 2024, this project aims to create a Python library.
-This library is composed of two functions.
+# Geospatial Processing Project
 
-## Path optimisation using googlemaps library
-tsp_googlemaps_fixed_start computes the optimal path between points by solving the traveling salesman problem with a fixed point of origin and the possibility of looping back to the point of origin at the end of the path. The distance used is the actual driving distance obtained with the googlemaps API distance_matrix.
-To solve the traveling salesman problem, the function uses a Branch-and-Bound algorithm. It explores all the branch of the path, pruning when the distance is longer than the best path.
-Points to visit can be indicated in latitude, longitude, address or location name format.
+As part of the **Geospatial Processing course** at *Politecnico di Milano*, Fall 2024, this project aims to create a Python library.  
+The library consists of two functions:
 
-To use the library, your **Google Maps API key must provide access to ditance_matrix and geocode.**
+---
 
-Display the optimal path and the distance in kilometer.
+## 1. Path Optimization Using the Google Maps Library
 
-Input: 
-origin: initial point
-destinations: list of points to visit
-API_key: Google Maps API key
-loop: If True, return to starting point after visiting all points
+The `tsp_googlemaps_fixed_start` function computes the optimal path between a set of points by solving the **Traveling Salesman Problem (TSP)** with a fixed starting point. Optionally, it can loop back to the origin at the end of the route.
 
-Output:
-return a pandas.DataFrame with points and their index in optimal order, the distance with the previous step, the latitude and longitude, and the coordinate system to consider
+### Key Features:
+- **Distance Metric:** Actual driving distance obtained from the Google Maps API `distance_matrix`.
+- **Algorithm:** A **Branch-and-Bound algorithm** that explores all possible paths, pruning branches when the distance exceeds the current best path.
 
-## GeoPackage file export from a points pandas.DataFrame
-gpkg_export(df) converts a DataFrame containing geospatial data (minimum latitude and longitude) into a GeoPackage file.
-The function takes a DataFrame with columns such as 'lat' (latitude), 'long' (longitude) and converts it into a GeoDataFrame using the WGS84 coordinate reference system. Each point geometry are then written in a GeoPackage file.
+### **Input Parameters:**
+- `origin`: Initial point.
+- `destinations`: A list of points to visit (latitude/longitude, address, or location name formats supported).
+- `API_key`: Google Maps API key with access to `distance_matrix` and `geocode`.
+- `loop`: If `True`, returns to the starting point after visiting all locations.
 
-Input:
-pandas.DataFrame containing geospatial data with 'lat' and 'long' columns
+### **Output:**
+Returns a `pandas.DataFrame` with the following columns:
+- Optimal order of points.
+- Distance to the previous point (in kilometers).
+- Latitude and longitude coordinates.
+- Coordinate system to use.
 
-Output:
-The function outputs a GeoPackage file named 'output.gpkg'
+### **Usage Notes:**
+Your **Google Maps API key** must have access to the `distance_matrix` and `geocode` services.
+
+---
+
+## 2. GeoPackage Export from a Pandas DataFrame
+
+The `gpkg_export` function converts a pandas DataFrame containing geospatial data into a **GeoPackage file**.  
+It transforms the input data into a GeoDataFrame using the **WGS84 coordinate reference system** and writes it as a GeoPackage.
+
+### **Input Parameters:**
+- A `pandas.DataFrame` containing:
+  - `lat`: Latitude of the point.
+  - `long`: Longitude of the point.
+
+### **Output:**
+A GeoPackage file named `output.gpkg` containing the geospatial data.
+
+---
+
+## Installation & Usage
+
+1. **Install Required Libraries:**  
+   Ensure the following Python libraries are installed:
+   - `googlemaps`
+   - `pandas`
+   - `geopandas`
+
+   Install missing dependencies with:
+   ```bash
+   pip install googlemaps pandas geopandas
