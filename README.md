@@ -48,10 +48,10 @@ A GeoPackage file named `output.gpkg` containing the geospatial data.
 
 ## Installation & Usage
 
-1. **Install Required Libraries:**  
-   The `environment.yml` file is provided to ensure all required dependencies are installed correctly.
-   This file includes the complete configuration to set up the Conda environment, 
+**Install Required Libraries:**  
+The `environment.yml` file is provided to ensure all required dependencies are installed correctly.
+This file includes the complete configuration to set up the Conda environment, 
 
-   Download or place the `environment.yml` file in your project folder, then run the following command in your terminal:  
-   ```bash
-   conda env create -f environment.yml
+Download or place the `environment.yml` file in your project folder, then run the following command in your terminal:  
+```bash
+conda env create -f environment.yml
