@@ -1,13 +1,13 @@
 import unittest
 import pandas as pd
 import geopandas as gpd
-from library_tsp_gpkg import tsp_googlemaps_fixed_start, gpkg_export
+from library_tsp_gpkg import compute_optimal_path, export_to_geopackage
 
-class TestTSPGoogleMaps(unittest.TestCase):
+class TestComputeOptimalPath(unittest.TestCase):
     """Test cases for tsp_googlemaps_fixed_start function."""
 
     def test_loop_true(self):
-        """Test tsp_googlemaps_fixed_start with loop=True."""
+        """Test compute_optimal_path with loop=True."""
         loop = True
         origin = "Politecnico di Milano"
         destinations = [
@@ -16,10 +16,9 @@ class TestTSPGoogleMaps(unittest.TestCase):
             "Calanque de Port Pin",
             "Piazza del Duomo, 50122 Firenze FI, Italie"
         ]
-        #api_key = "Input the API key"
-        api_key = "AIzaSyAMsr4GGdiQS7FWsN5xgu7z8_qj6tpacTg"
+        api_key = "Input the API key"
         
-        result = tsp_googlemaps_fixed_start(origin, destinations, api_key, loop)
+        result = compute_optimal_path(origin, destinations, api_key, loop)
 
         # Expected result: order of destinations
         expected_order = [0, 2, 1, 3, 4, 0]
@@ -32,7 +31,7 @@ class TestTSPGoogleMaps(unittest.TestCase):
         self.assertIsInstance(destinations, list, "Input destinations must be a list")
     
     def test_loop_false(self):
-        """Test tsp_googlemaps_fixed_start with loop=False."""
+        """Test compute_optimal_path with loop=False."""
         loop = False
         origin = "Politecnico di Milano"
         destinations = [
@@ -41,10 +40,9 @@ class TestTSPGoogleMaps(unittest.TestCase):
             "Calanque de Port Pin",
             "Piazza del Duomo, 50122 Firenze FI, Italie"
         ]
-        #api_key = "Input the API key"
-        api_key = "AIzaSyAMsr4GGdiQS7FWsN5xgu7z8_qj6tpacTg"
+        api_key = "Input the API key"
 
-        result = tsp_googlemaps_fixed_start(origin, destinations, api_key, loop)
+        result = compute_optimal_path(origin, destinations, api_key, loop)
 
         # Expected result: order of destinations
         expected_order = [0, 4, 3, 1, 2]
@@ -53,10 +51,10 @@ class TestTSPGoogleMaps(unittest.TestCase):
         # Validate the path optimization
         self.assertEqual(actual_order, expected_order, "Path optimization is incorrect")
 
-class TestGPKGExport(unittest.TestCase):
-    """Test cases for gpkg_export function."""
+class TestExportToGeopackage(unittest.TestCase):
+    """Test cases for export_to_geopackage function."""
 
-    def test_gpkg_export(self):
+    def test_export_to_geopackage(self):
         """Test the export of a DataFrame to a GeoPackage."""
         # Sample data
         data = {
@@ -81,7 +79,7 @@ class TestGPKGExport(unittest.TestCase):
         self.assertIsNotNone(long_column, "'long' or 'longitude' column is missing")
             
         # Export to GeoPackage
-        gpkg_export(df)
+        export_to_geopackage(df)
 
         # Verify exported GeoPackage content
         gdf_exported = gpd.read_file("output.gpkg")
