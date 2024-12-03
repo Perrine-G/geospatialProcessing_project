@@ -37,8 +37,8 @@ def compute_optimal_path(origin, destinations, api_key, loop):
         for i in range(n):
             for j in range(n):
                 if i != j:  # skip self-to-self distances
-                    response = client.distance_matrix(destinations[i], destinations[j], 
-                                                      language='English', departure_time=datetime.now())  # use of the distance matrix googlemaps API
+                    response = client.distance_matrix(destinations[i], destinations[j], # use of the distance matrix googlemaps API
+                                                      language='English', departure_time=datetime.now())  
                     distance = response['rows'][0]['elements'][0]['distance']['value']  # extract the distance value
                     dist_matrix[i][j] = round(distance / 1000.0, 3)  # convert meters to kilometers
                     pbar.update(1)  # Update the progress bar
