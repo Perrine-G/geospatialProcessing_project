@@ -9,6 +9,7 @@ dependencies:
   - geopandas
   - fiona
   - gdal
+  - tqdm
   - pip
   - pip:
     - googlemaps
