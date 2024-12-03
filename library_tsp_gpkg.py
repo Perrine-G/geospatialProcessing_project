@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import googlemaps
+from tqdm import tqdm
 from datetime import datetime
 from osgeo import ogr, osr
 osr.UseExceptions()
@@ -18,7 +19,7 @@ def compute_optimal_path(origin, destinations, api_key, loop):
 
     Display the optimal path and the distance in kilometer.
 
-    :param origin:Initial point.
+    :param origin: Initial point.
     :param destinations: list of points to visit.
     :param api_key: Google Maps API key.
     :param loop: If True, return to starting point after visiting all points.
@@ -32,13 +33,15 @@ def compute_optimal_path(origin, destinations, api_key, loop):
     dist_matrix = np.zeros((n, n))  # initialize the distance matrix
 
     # distance matrix using Google Maps Distance Matrix API
-    for i in range(n):
-        for j in range(n):
-            if i != j:  # skip self-to-self distances
-                response = client.distance_matrix(destinations[i], destinations[j], 
-                                                  language='English', departure_time=datetime.now())  # use of the distance matrix googlemaps API
-                distance = response['rows'][0]['elements'][0]['distance']['value']  # extract the distance value
-                dist_matrix[i][j] = round(distance / 1000.0, 3)  # convert meters to kilometers
+    with tqdm(total=n * (n - 1), desc="Computing Distance Matrix") as pbar:  # Initialize tqdm progress bar
+        for i in range(n):
+            for j in range(n):
+                if i != j:  # skip self-to-self distances
+                    response = client.distance_matrix(destinations[i], destinations[j], 
+                                                      language='English', departure_time=datetime.now())  # use of the distance matrix googlemaps API
+                    distance = response['rows'][0]['elements'][0]['distance']['value']  # extract the distance value
+                    dist_matrix[i][j] = round(distance / 1000.0, 3)  # convert meters to kilometers
+                    pbar.update(1)  # Update the progress bar
 
     # initialize variables for the best distance and path
     best_dist = float('inf')
@@ -105,7 +108,7 @@ def compute_optimal_path(origin, destinations, api_key, loop):
     print(f"\nOptimal distance: {path_df.km.sum()} km")
 
     return path_df
-
+    
 def export_to_geopackage(df):
     '''
     Converts a DataFrame containing geospatial data (minimum latitude and longitude) into a 
