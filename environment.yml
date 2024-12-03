@@ -1,4 +1,14 @@
-name: geolibtest_env
+name: geolib_env
 channels:
+  - conda-forge
   - defaults
-prefix: C:\Users\godef\anaconda3\envs\geolibtest_env
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - geopandas
+  - fiona
+  - gdal
+  - pip
+  - pip:
+    - googlemaps

@@ -111,10 +111,23 @@ def gpkg_export(df):
 
     :return: None. The function outputs a GeoPackage file named 'output.gpkg'.
     '''
+
+    lat_column = None
+    long_column = None
+    
+    for col in df.columns:
+        if col.lower() in ['lat', 'latitude']:
+            lat_column = col
+        elif col.lower() in ['long', 'longitude']:
+            long_column = col
+    if lat_column is None or long_column is None:
+        raise ValueError("Missing latitude and longitude columns")
+
+    
     # create a GeoDataFrame using latitude and longitude columns
     gdf = gpd.GeoDataFrame(
         df, 
-        geometry=gpd.points_from_xy(df.long, df.lat), 
+        geometry=gpd.points_from_xy(df[long_column], df[lat_column]), 
         crs='WGS84') #  set the coordinate reference system
 
     # initialize the output file
