@@ -49,11 +49,9 @@ A GeoPackage file named `output.gpkg` containing the geospatial data.
 ## Installation & Usage
 
 1. **Install Required Libraries:**  
-   Ensure the following Python libraries are installed:
-   - `googlemaps`
-   - `pandas`
-   - `geopandas`
+   The `environment.yml` file is provided to ensure all required dependencies are installed correctly.
+   This file includes the complete configuration to set up the Conda environment, 
 
-   Install missing dependencies with:
+   Download or place the `environment.yml` file in your project folder, then run the following command in your terminal:  
    ```bash
-   pip install googlemaps pandas geopandas
+   conda env create -f environment.yml
